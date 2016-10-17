@@ -1,16 +1,19 @@
 #import the right Python libraries to complete our requests
+import io
 #the library to grab URLs and data from webpages
-import urllib.request
+import requests
 #the library that lets us write and read CSVs
 import csv
 
 #put the text file into an array
-lines = urllib.request.urlopen('http://bit.ly/2dfjvCC').read().decode().splitlines()
+lines = requests.get('http://bit.ly/2dfjvCC').text.splitlines()
 
 #this is where we declare where we want to write our file to
-output_file = open('PATH TO FILE/news1.csv', 'w', newline='')
+output_file = open('PATH TO FILE/news1.csv', 'wb')
+#On Python 3, use:
+#output_file = open('PATH TO FILE/news1.csv', 'w', newline='')
 
-#this creates our writer, which will do all our heavy lifting. We give it the name of the output file & the dialect, meaning 
+#this creates our writer, which will do all our heavy lifting. We give it the name of the output file & the dialect, meaning this will create a file readable by Excel
 writer = csv.writer(output_file, dialect='excel')
 
 #I want to add headers to the CSV, since there aren't any in our txt file
@@ -26,12 +29,14 @@ while True:
         row = []
         #put five lines into the row array
         for _ in range(5):
-            row.append(next(line_iterator))
+            item = next(line_iterator)
+            item = item.encode('utf-8') #convert to utf-8 for the output
+            row.append(item)
         #write those five lines across a row
         writer.writerow(row)
         #iterate over the two blank lines in our text file
         next(line_iterator)
         next(line_iterator)
-    #stop the interation when there is nothing left! 
+    #stop the interation when there is nothing left!
     except StopIteration:
         break
