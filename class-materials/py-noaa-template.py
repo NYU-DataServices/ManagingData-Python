@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import gzip
 import io
 import pandas as pd
@@ -21,10 +20,11 @@ for line in html.splitlines():  #Iterating through returned HTTPResponse object,
         yeardatagzip = requests.get(yearurl).content     #Get the table file
         yearfilegzip = io.BytesIO(yeardatagzip)
         yearfile = gzip.GzipFile(fileobj=yearfilegzip, mode='rb')
-        table = pd.read_csv(yearfile, low_memory=False)  #Read the table as a dataframe
+        table = pd.read_csv(yearfile, low_memory=False, encoding='iso-8859-15')  #Read the table as a dataframe
         fintable = pd.concat([fintable, table])    #Append the dataframe to the final dataframe
 
-#Display an abbreviated version of the table in the Notebook
+# Display an abbreviated version of the table in the Notebook
 display(fintable)
-#Export a select few columns of the dataframe to a csv
-fintable.to_csv(r'PATH TO FILE/storm-events2.csv', encoding='utf-8', columns=["BEGIN_YEARMONTH", "EVENT_ID", "STATE", "STATE_FIPS", "CZ_FIPS", "CZ_NAME", "EVENT_TYPE", "DAMAGE_PROPERTY", "BEGIN_LAT", "BEGIN_LON"])
+
+# Export a select few columns of the dataframe to a csv
+fintable.to_csv(r'/PATH TO FILE/storm-events2.csv', encoding='utf-8', columns=["BEGIN_YEARMONTH", "EVENT_ID", "STATE", "STATE_FIPS", "CZ_FIPS", "CZ_NAME", "EVENT_TYPE", "DAMAGE_PROPERTY", "BEGIN_LAT", "BEGIN_LON"])
