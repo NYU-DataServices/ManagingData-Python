@@ -6,7 +6,7 @@ import requests
 import re
 from IPython.display import display
 
-baseurl = 'http://www1.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/'   #URL of NOAA directory.
+baseurl = 'https://goo.gl/gAevMH'   #Non-shortened URL of NOAA directory: http://www1.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/
 
 fintable = pd.DataFrame()   #Creating an empty dataframe. Tables will be appended to this dataframe as they are opened.
 
