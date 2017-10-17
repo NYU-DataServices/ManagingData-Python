@@ -12,7 +12,7 @@ lines = requests.get('http://bit.ly/2dfjvCC').text.splitlines()
 #output_file = open('/home/vicky/Downloads/news1.csv', 'wb')
 
 # On Python 3, use:
-output_file = open('/PATH TO FILE/news.csv', 'w', newline='')
+output_file = open('/PATH TO FILE/news.csv', 'w', encoding = 'utf8', newline='')
 
 # this creates our writer, which will do all our heavy lifting. We give it the name of the output file & the dialect, meaning this will create a file readable by Excel
 writer = csv.writer(output_file, dialect='excel')
